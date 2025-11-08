@@ -16,6 +16,7 @@ import Member as Mmbr
 ##! Start:
 print(" ========  compareJISCMAIL2CollaborationLst start  ========")
 
+Debug = False
 
 ##! --------  Read membership list and mailing list
 Block = 1
@@ -71,9 +72,12 @@ print(" ----> Block:", Block, \
       " search for members whose emails are not in list.")
 iCnt = 0
 for iMmbr in Mmbr.Member.getAlphaMemberSort():
-    if iMmbr.getemail().lower() in JISCMlLst.values:
-        pass
-    else:
+    MmbremailSplit = iMmbr.getemail().split(';')
+    MmbremailFound = False
+    for Mmbremail in MmbremailSplit:
+        if Mmbremail.strip().lower() in JISCMlLst.values:
+            MmbremailFound = True
+    if not MmbremailFound:
         print("     ----> Member", \
               iMmbr.getSurname(), ", ", iMmbr.getInitials(), \
               " email:", iMmbr.getemail(), \
@@ -91,12 +95,23 @@ iCnt = 0
 print(" ----> Block:", Block, " people in email list who are not members")
 for iRow in JISCMlLst.itertuples(index = True):
     JISCemail = getattr(iRow, "email").lower()
+    if Debug:
+        print("     ----> Email:", JISCemail)
+        
     foundMEMBER = False
     for iMmbr in Mmbr.Member.getAlphaMemberSort():
-        Mmbremail = iMmbr.getemail().lower()
-        if JISCemail == Mmbremail:
-            foundMEMBER = True
-    
+        MmbremailSplit = iMmbr.getemail().split(';')
+        if Debug:
+            print("         ----> MmbremailSplit:", MmbremailSplit)
+        for Mmbremail in MmbremailSplit:
+            if JISCemail == Mmbremail.strip().lower():
+                foundMEMBER = True
+                if Debug:
+                    print(\
+                        "         <---- Member found: Mmbremail list, len:", \
+                        Mmbremail, len(MmbremailSplit))
+                break
+    Debug = False
     if not foundMEMBER:
         print("     ----> JISCMAIL entry", JISCemail, \
               " not a member of LhARA.")
