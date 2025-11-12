@@ -105,7 +105,7 @@ class Member:
         self._Surname          = __Surname
         self._Initials         = __Initials
         self._email            = __email
-        self._PubName          = __PubName 
+        self.setPubName(__PubName)
         self._Organisation     = __Organisation
         self._Affiliation      = __Affiliation
         self._ORCID            = __ORCID
@@ -277,6 +277,9 @@ class Member:
     def getInitials(self):
         return self._Initials
 
+    def getPubName(self):
+        return self._PubName
+        
     def getemail(self):
         return self._email
 
@@ -306,6 +309,18 @@ class Member:
     @classmethod
     def setInstMemberSort(cls, _sortedMembers):
         cls._InstMmbrSort = _sortedMembers
+        
+    def setPubName(self, _PubName):
+        if isinstance(_PubName, str):
+            PubName = _PubName.strip().replace(" ", "~")
+        else:
+            PubName = ""
+            if isinstance(self.getInitials(), str): PubName += self.getInitials()
+            if isinstance(self.getSurname(),str): PubName += "~" + self.getSurname()
+
+        if PubName == "": PubName = "Unkown"
+
+        self._PubName = PubName
         
     
 #--------  Print methods:

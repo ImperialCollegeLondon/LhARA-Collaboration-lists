@@ -420,7 +420,7 @@ class AlphaInstAuth(List):
 
             if AuthLine != "": AuthLine += ", "
             
-            Author    =  iMmbr.getInitials() + "~" + iMmbr.getSurname()
+            Author    = iMmbr.getPubName()
             AuthLine += Author
 
             #.. Check for "also at":
