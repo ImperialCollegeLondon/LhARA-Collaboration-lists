@@ -111,7 +111,6 @@ for iRow in JISCMlLst.itertuples(index = True):
                         "         <---- Member found: Mmbremail list, len:", \
                         Mmbremail, len(MmbremailSplit))
                 break
-    Debug = False
     if not foundMEMBER:
         print("     ----> JISCMAIL entry", JISCemail, \
               " not a member of LhARA.")
