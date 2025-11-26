@@ -159,7 +159,7 @@ class Member:
             Title     = _MmbrDtbsParams.iat[i,0]
             Name      = _MmbrDtbsParams.iat[i,1]
             Surname   = _MmbrDtbsParams.iat[i,2]
-            Initials  = _MmbrDtbsParams.iat[i,3]
+            Initials  = _MmbrDtbsParams.iat[i,3].replace(" ", "")
             Email     = _MmbrDtbsParams.iat[i,4]
             PubName   = _MmbrDtbsParams.iat[i,5]
             Org       = _MmbrDtbsParams.iat[i,6]

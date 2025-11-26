@@ -34,7 +34,7 @@ print("========  Load files  ========")
 fileLIST = sorted(os.listdir(fileDIR))
 nMembers = 0
 for file in fileLIST:
-    if file.find('.csv') <= 0:
+    if file.find('.csv') <= 0 or file.find('ZZ') >= 0:
         pass
     else:
         filePATH = os.path.join(fileDIR, file)
