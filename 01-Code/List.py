@@ -475,6 +475,51 @@ class AlphaInstAuth(List):
         return cls.__Debug
 
 
+"""
+Class AlphaAuthTxt: -------->  "Alphabetic author list in text format"; 
+===================                            derived class  <--------
+  
+
+"""
+class AlphaAuthTxt(List):
+    __Debug   = True
+
+    def __init__(self, _ListPath, _FileName):
+
+        """
+           --------> Get started:
+        """
+        
+        List.__init__(self, "Alphabetic authorlist text format", \
+                      _ListPath, _FileName)
+
+        self.getAuthors()
+
+        
+#--------  List elements:
+    def getAuthors(self):
+        nAuth = 0
+        if Mmbr.Member._AlphaMmbrSort == None:
+            nClnd  = Mmbr.Member.cleanMemberDatabase()
+            Result = Mmbr.Member.sortAlphabeticalByName()
+            if AlphaAuthTxt.__Debug:
+                print(" AlphaAuth(List).getAuthors: Cleaned", nClnd, \
+                      "members.")
+                print(" AlphaAuth(List).getAuthors:", Result)
+
+        Line = ""
+        for iMmbr in Mmbr.Member._AlphaMmbrSort:
+            nAuth += 1
+            Author =  iMmbr.getInitials() + iMmbr.getSurname()
+            
+            Line += Author
+            
+            if nAuth < len(Mmbr.Member._Instances):
+                Line += ", "
+                
+        self._Lines.append(Line)
+            
+    
 #--------  Exceptions:
 class NoListNameProvided:
     pass

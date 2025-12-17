@@ -53,5 +53,8 @@ AlphaInstLst.writeList()
 AuthByInst = Lst.AlphaInstAuth(filepath, "01-AuthorsByInstitute.tex")
 AuthByInst.writeList()
 
+AlphaAuthTxtLst = Lst.AlphaAuthTxt(filepath, "02-AuthorList.txt")
+AlphaAuthTxtLst.writeList()
+
 ##! Complete:
 print("========  Complete  ========")
