@@ -154,6 +154,11 @@ class Member:
         iRow       = _MmbrDtbsParams.index
         newMembers = 0
         for i in iRow:
+            if isinstance(_MmbrDtbsParams.iat[i,1], str):
+                if _MmbrDtbsParams.iat[i,1] == "": continue
+            elif isinstance(_MmbrDtbsParams.iat[i,1], float):
+                if math.isnan(_MmbrDtbsParams.iat[i,1]): continue
+            
             AffilCode = []
             AffilAddr = []
             Title     = _MmbrDtbsParams.iat[i,0]
