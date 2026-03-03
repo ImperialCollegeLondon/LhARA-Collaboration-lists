@@ -123,6 +123,16 @@ class List:
         return "     <---- List __str__ done."
 
 
+#--------  Get/set methods:
+    @classmethod
+    def setDebug(cls, _Debug):
+        cls.__Debug = _Debug
+
+    @classmethod
+    def getDebug(cls):
+        return cls.__Debug
+
+
 #--------  Processing methods
 
     
@@ -482,7 +492,7 @@ Class AlphaAuthTxt: -------->  "Alphabetic author list in text format";
 
 """
 class AlphaAuthTxt(List):
-    __Debug   = True
+    __Debug   = False
 
     def __init__(self, _ListPath, _FileName):
 
@@ -520,6 +530,56 @@ class AlphaAuthTxt(List):
         self._Lines.append(Line)
             
     
+"""
+Class AlphaInstTxt: -------->  "Alphabetic author list in text format"; 
+===================                            derived class  <--------
+  
+
+"""
+class AlphaInstTxt(List):
+    __Debug   = False
+
+    def __init__(self, _ListPath, _FileName):
+
+        """
+           --------> Get started:
+        """
+        
+        List.__init__(self, "Alphabetic institute list text format", \
+                      _ListPath, _FileName)
+
+        self.getInstitutes()
+
+        
+#--------  List elements:
+    def getInstitutes(self):
+        
+        if self.getDebug():
+            print(" List.AlphaInstTxt.getInstitutes: start:", \
+                  " institutes sorterd:", \
+                  not (Inst.Institute.getAlphaInstituteSort()==None))
+
+        nClnd  = Mmbr.Member.cleanMemberDatabase()
+
+        if Inst.Institute.getAlphaInstituteSort() == None:
+            Result = Inst.Institute.sortAlphabeticalByName()
+            if self.getDebug():
+                print("     ----> Authors cleaned", nClnd, "members.")
+                print("     ----> sortAlphabeticalbyInstName:", Result)
+        
+        nInst = 0
+        if self.getDebug():
+            print("     ----> Institute list:")
+        for iInst in Inst.Institute._AlphaInstSort:
+            nInst += 1
+            Line = iInst.getAddress()
+            if self.getDebug():
+                print("         ", Line)
+            self._Lines.append(Line)
+
+        if self.getDebug():
+            print("         ", self._Lines)
+
 #--------  Exceptions:
 class NoListNameProvided:
     pass
