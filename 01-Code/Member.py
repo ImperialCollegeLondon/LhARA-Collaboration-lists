@@ -198,8 +198,8 @@ class Member:
 
             #.. Find, or set, Org instance:
             OrgInst = None
-            for iInst in Inst.Institute._Instances:
-                if iInst._Name == Org:
+            for iInst in Inst.Institute.getinstances():
+                if iInst.getName() == Org:
                     OrgInst = iInst
             if OrgInst == None:
                 OrgInst = Inst.Institute(Org, Address, True)

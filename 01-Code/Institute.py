@@ -55,6 +55,8 @@ class Institute:
 #--------  "Built-in methods":
     def __init__(self, __Name=None, __Address=None, __Debug=False):
 
+        self.setAll2None()
+        
         self._Debug = False
         if not isinstance(__Debug, bool):
             raise BadArgumentList
@@ -64,10 +66,16 @@ class Institute:
         if __Name == None or not isinstance(__Name, str):
             print(" >>>> Bad institute: Name, Address, Debug:",
                   __Name, __Address, __Debug)
-            raise BadArgumentList
+            raise BadArgumentListxsx
         if __Address == None or not isinstance(__Address, str):
             raise BadArgumentList
-        
+
+        gotINST = self.gotTHISinstitute(__Name, __Address)
+        if gotINST[0] or gotINST[1]:
+            print(" Institute.__init__: Repeated institute!", __Name, \
+                  __Address)
+            raise repeatedINSTITUTE()
+            
         self._Name    = __Name
         self._Address = __Address
         
@@ -89,6 +97,10 @@ class Institute:
 
 
 #--------  "Get methods" only
+    @classmethod
+    def getDebug(cls):
+        return cls.__Debug
+        
     @classmethod
     def getinstances(cls):
         return cls._Instances
@@ -121,9 +133,41 @@ class Institute:
     @classmethod
     def getInstituteInst(cls, InstId):
         return cls._Instances[InstId]
+
+    @classmethod
+    def gotTHISinstitute(cls, instTSTname, instTSTaddress):
+        if cls.getDebug():
+            print(" Institute.gotTHISinstitute: starts:", \
+            instTSTname, instTSTaddress)
+        
+        got = [False, False]
+        
+        if cls.getDebug():
+            print("     ----> len(cls.getinstances()):", \
+                  len(cls.getinstances()))
+            
+        if len(cls.getinstances()) > 0:
+            for iInst in cls.getinstances():
+                if cls.getDebug():
+                    print("    iInst.getName(), iInst.getAddress():", \
+                          iInst.getName(), iInst.getAddress())
+                if iInst.getName()    ==    instTSTname: got[0] = True
+                if iInst.getAddress() == instTSTaddress: got[1] = True
+
+        if cls.getDebug():
+            print(" <---- got:", got)
+                
+        return got
+    
     
 #--------  "Set methods" only
+    @classmethod
+    def setDebug(cls, Debug):
+        cls.__Debug = Debug
         
+    def setAll2None(self):
+        self._Name    = None
+        self._Address = None
     
 #--------  Print methods:
     def print(self):
@@ -162,4 +206,7 @@ class Institute:
 #--------  Exceptions:
 class BadArgumentList(Exception):
     """Bad argument list"""
+    pass
+
+class repeatedINSTITUTE(Exception):
     pass

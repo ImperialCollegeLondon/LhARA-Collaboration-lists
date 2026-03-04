@@ -553,7 +553,6 @@ class AlphaInstTxt(List):
         
 #--------  List elements:
     def getInstitutes(self):
-        
         if self.getDebug():
             print(" List.AlphaInstTxt.getInstitutes: start:", \
                   " institutes sorterd:", \
@@ -574,6 +573,7 @@ class AlphaInstTxt(List):
             nInst += 1
             Line = iInst.getAddress()
             if self.getDebug():
+                print("     ---->", iInst.getName())
                 print("         ", Line)
             self._Lines.append(Line)
 
